@@ -14,7 +14,7 @@ const registrationStudent = async (req, res) => {
     if (!errors.isEmpty())
         return res.status(400).json({message: 'Ошибка при регистрации', errors})
 
-    const {username, password, FIO, IDGroup} = await req.body;
+    const {username, password, FIO} = await req.body;
 
     function existLogin(username) {
         return new Promise((resolve) => {
@@ -32,7 +32,7 @@ const registrationStudent = async (req, res) => {
 
 
     connection.query(
-        `INSERT INTO student (ID,IDRole,Login,Password,FIO,IDGroup,ArrSubject) VALUES (NULL,?,?,?,?,1,[])`,
+        `INSERT INTO student (ID,IDRole,Login,Password,FIO,IDGroup,ArrSubject) VALUES (NULL,?,?,?,?,1,'[]')`,
         [role.Student, username, hashPassword, FIO],
         (err) => {
             if (err) console.log(err)
